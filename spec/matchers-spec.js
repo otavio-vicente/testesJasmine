@@ -200,3 +200,106 @@ decribe("Suíte de testes do toThrowError", function(){
 });
 
 //Falha Manual
+
+describe("Teste a função 'fail' de falha manual", function(){
+    var operacao = function(deveExecutar, callBack) {
+        if (deveExecutar) {
+            callBack();
+        }
+    };
+    it("naõ deve executar a função de callBack", function(){
+        operacao(false, function(){
+            fail("Função de callBack foi excluída");
+        });
+    });
+});
+
+//beforeEach
+
+describe("Suíte de testes do beforeEach", function(){
+    var contador = 0;
+    beforeEach(function(){
+        contador++;
+    });
+    it("deve exibir o contador com valor 1", function(){
+        expect(contador).toEqual(1);
+    });
+    it("deve exibir o contador com valor 2", function(){
+        expect(contador).toEqual(2);
+    });
+});
+
+//afterEach
+
+decribe("Suíte de testes do afterEach", function(){
+    var contador = 0;
+    beforeEach(function(){
+        contador++;
+    });
+    afterEach(function(){
+        contador = 0;
+    });
+    it("deve exibir o contador com valor 1", function(){
+        expect(contador).toEqual(1);
+    });
+    it("deve continuar exibindo o contador com valor 1", function(){
+        expect(contador).toEqual(1);
+    });
+});
+
+//beforeAll
+
+describe("Suíte de testes do beforeAll", function(){
+    var contador;
+    beforeAll(function(){
+        contador = 10;
+    });
+    beforeEach(function(){
+        contador++;
+    });
+    it("deve exibir o contador com valor 11", function(){
+        expect(contador).toEqual(11);
+    });
+    it("deve exibir o contador com valor 12", function(){
+        expect(contador).toEqual(12);
+    }); 
+});
+
+//afterAll
+
+describe("Suíte de testes do afterAll", function(){
+    var contador;
+    beforeAll(function(){
+        contador = 10;
+    });
+    afterAll(function(){
+        contador = 0;
+    });
+    it("deve exibir o contador com valor 10", function(){
+        expect(contador).toEqual(10);
+    });
+    it("deve manter o contador com valor 10", function(){
+        expect(contador).toEqual(10);
+    }); 
+});
+
+//Alinhando Suítes
+
+decribe("Suítes de testes Aninhando Suítes", function(){
+    var contadorExterno = 0;
+    beforeEach(function(){
+        contadorExterno++;
+    });
+    it("deve ter incrementado o contador externo para 1", function(){
+        expect(contadorExterno).toEqual(1);
+    });
+    decribe("Suíte aninhada à anterior", function(){
+        var contadorInterno = 1;
+        beforeEach(function(){
+            contadorInterno++;
+        });
+        it("deve conter o valor '2' para ambos contadores", function() {
+            expect(contadorInterno).toEqual(contadorExterno);
+        })
+    })
+})
